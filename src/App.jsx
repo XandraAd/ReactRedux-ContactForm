@@ -35,11 +35,17 @@ handleAddContact=(contactDetail)=>{
   })
   };
 
-  
   handleEditSelectedContact=(id, updatedContact) => {
-    this.setState(this.state.contacts.map(
-      contact => (contact.id === id ? updatedContact : contact)));
+    console.log(updatedContact)
+    const modifiedContact= this.state.contacts.map((contact) => contact.id === id ? updatedContact : contact);
+    this.setState({contacts:modifiedContact});
   };
+
+
+ /* handleEditSelectedContact=(id, updatedContact) => {
+    console.log(updatedContact)
+    this.setState({contacts:this.state.contacts.map((contact) => contact.id === id ? updatedContact : contact)});
+  };*/
 
 
   handleDelete = (id) => {

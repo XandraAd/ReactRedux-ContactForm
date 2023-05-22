@@ -36,6 +36,7 @@ export default class Contacts extends Component {
             <EditContactsForm
               contact={this.state.selectedContact}
               editSelectedContact={this.props.editContact}
+              closeModal= {this.state.show}
             />
           </Modal.Body>
         </Modal>
