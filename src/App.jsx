@@ -1,11 +1,9 @@
 /* eslint-disable no-unused-vars */
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import React, { Component } from 'react'
-import Contacts from './components/Contacts'
-import ContactForm from './components/ContactForm';
+import {Container, Row, Col }from 'react-bootstrap';
+import React, { Component } from 'react';
+import Contacts from './components/Contacts';
+import AddContactsForm from './components/AddContactsForm';
 
 export default class App extends Component {
   constructor(props){
@@ -14,12 +12,14 @@ export default class App extends Component {
       contacts:[{
        name:"Sandra",
        phone:"0253456777",
-       location:"central Park nw"
+       location:"central Park nw",
+       id:"sds34355545454"
       },
     {
        name:"Sandra",
        phone:"0253456777",
-       location:"central Park nw"
+       location:"central Park nw",
+       id:"dfr6788755t6z6z6"
       }
     
     ]
@@ -32,11 +32,23 @@ handleAddContact=(contactDetail)=>{
   this.setState({
     contacts:[...this.state.contacts,contactDetail]
   
-  }
-     
-)
+  })
+  };
+
   
-}
+  handleEditSelectedContact=(id, updatedContact) => {
+    this.setState(this.state.contacts.map(
+      contact => (contact.id === id ? updatedContact : contact)));
+  };
+
+
+  handleDelete = (id) => {
+    const updatedContacts = this.state.contacts.filter((contact) => contact.id !== id);
+    this.setState({ contacts: updatedContacts });
+  };
+  
+
+
 
   render() {
     return (
@@ -44,8 +56,13 @@ handleAddContact=(contactDetail)=>{
 <Container fluid>
 
       <Row className="justify-content-md-center">
-        <Col md={4}><ContactForm contactDetails={this.handleAddContact}/></Col>
-        <Col><Contacts contacts={this.state.contacts}/></Col>
+        <Col md={4}><AddContactsForm contactDetails={this.handleAddContact}/></Col>
+        <Col>
+        <Contacts 
+        contacts={this.state.contacts} 
+        deleteContact={this.handleDelete}
+        editContact={this.handleEditSelectedContact}/>
+        </Col>
       </Row>
       
     </Container>
@@ -55,3 +72,19 @@ handleAddContact=(contactDetail)=>{
 }
 
 
+
+
+
+
+  /*handleContactUpdate(id, updatedContact) {
+    this.setState(
+      this.state.contacts.map((contact) => {
+        if (contact.id === id) {
+          return { ...updatedContact };
+        } else {
+          return contact;
+        }
+      })
+    );
+  }
+*/

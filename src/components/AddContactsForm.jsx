@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 import {Component} from 'react'
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+import {Button, Form} from 'react-bootstrap';
 
 
 
-class ContactForm extends Component {
+
+class AddContactsForm extends Component {
   constructor(props){
     super(props)
     this.state={
@@ -71,4 +71,4 @@ render(){
  
 
 
-export default ContactForm;
+export default AddContactsForm;
