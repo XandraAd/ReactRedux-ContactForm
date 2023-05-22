@@ -40,6 +40,7 @@ export default class EditContactsForm extends Component {
       id: this.state.id,
     };*/
     this.props.editSelectedContact(this.state.id,this.state);
+    
     /*e.target.reset();*/
   };
 
