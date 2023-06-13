@@ -2,8 +2,11 @@
 /* eslint-disable no-unused-vars */
 import React, { Component } from 'react';
 import { Form, Button } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import {editContact}from '../slices/contactsSlice'
+import { v4 as uuid } from "uuid";
 
-export default class EditContactsForm extends Component {
+class EditContactsForm extends Component {
   constructor(props) {
     super(props);
     /*const { contact } = props;*/
@@ -32,16 +35,16 @@ export default class EditContactsForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    /*const { name, phone, location } = this.state;
     const updatedContact = {
-      name,
-      phone,
-      location,
-      id: this.state.id,
-    };*/
-    this.props.editSelectedContact(this.state.id,this.state);
+      name: this.state.name,
+      phone: this.state.phone,
+      location: this.state.location,
+      id:this.state.id
+    }
+    this.props.editContact(updatedContact)
+   
     
-    /*e.target.reset();*/
+  
   };
 
   render() {
@@ -89,3 +92,11 @@ export default class EditContactsForm extends Component {
     );
   }
 }
+
+
+const mapDispatch= {
+  editContact: editContact,
+};
+
+export default connect(null, mapDispatch)(EditContactsForm);
+

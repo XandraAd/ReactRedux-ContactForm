@@ -3,11 +3,15 @@
 import React, { Component } from "react";
 import { Card, Button, Modal } from "react-bootstrap";
 import EditContactsForm from "./EditContactsForm";
+import { connect } from "react-redux";
+import {deleteContact, editContact} from '../slices/contactsSlice';
 
-export default class Contacts extends Component {
+
+class Contacts extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      
       show: false,
       selectedContact:null
     };
@@ -20,6 +24,11 @@ export default class Contacts extends Component {
   handleClose = () => {
     this.setState({ show: false });
   };
+
+  handleEdit =(updatedContact) => {
+    this.props.editContact(updatedContact);
+
+  }
 
   handleDelete = (id) => {
     this.props.deleteContact(id);
@@ -35,7 +44,8 @@ export default class Contacts extends Component {
           <Modal.Body>
             <EditContactsForm
               contact={this.state.selectedContact}
-              editSelectedContact={this.props.editContact}
+              editContact={this.handleEdit}
+             
               closeModal= {this.state.show}
             />
           </Modal.Body>
@@ -60,7 +70,7 @@ export default class Contacts extends Component {
                 </Card.Link>
                 <Card.Link href="#">
                   <Button
-                    onClick={() => this.handleDelete(contact.id)}
+                    onClick={() => this.handleDelete(contact)}
                     variant="danger"
                     size="sm"
                   >
@@ -76,3 +86,18 @@ export default class Contacts extends Component {
     );
   }
 }
+
+const mapState = (state) =>{
+  return {
+    contacts:state.contactReducer.contacts
+  }
+}
+
+
+const mapDispatch = {
+  editContact: editContact,
+  deleteContact :deleteContact
+};
+
+
+export default connect (mapState, mapDispatch)(Contacts)
